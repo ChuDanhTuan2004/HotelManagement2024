@@ -3,9 +3,11 @@ package com.tuancd.demo1.controller;
 import com.tuancd.demo1.dto.BookingRequest;
 import com.tuancd.demo1.dto.PaginateRequest;
 import com.tuancd.demo1.model.BookedRoom;
+import com.tuancd.demo1.model.Room;
 import com.tuancd.demo1.repository.IBookingRepository;
 import com.tuancd.demo1.repository.IRoomRepository;
 import com.tuancd.demo1.service.BookingService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,7 +38,8 @@ public class BookingController {
                                   @RequestParam(name = "guestName", required = false) String guestName,
                                   @RequestParam(name = "confirmCode", required = false) String confirmCode,
                                   @RequestParam(name = "page", required = false, defaultValue = "0") int page,
-                                  @RequestParam(name = "size", required = false, defaultValue = "5") int size
+                                  @RequestParam(name = "size", required = false, defaultValue = "5") int size,
+                                  HttpServletRequest httpServletRequest
     ) {
         //set booking request model
         BookingRequest bookingRequest = new BookingRequest();
@@ -50,7 +54,8 @@ public class BookingController {
 
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", bookings.getTotalPages());
-
+        String noti = httpServletRequest.getParameter("suc");
+        model.addAttribute("suc",noti);
         model.addAttribute("bookings", bookings.getContent());
         return "booking/listBooking";
     }
@@ -64,12 +69,15 @@ public class BookingController {
     }
 
     @PostMapping("/create")
-    public String saveBooking(@Valid @RequestParam Long roomId, Model model,
-                              @ModelAttribute BookingRequest bookingRequest, BindingResult result) {
-        if (!result.hasErrors()) {
+    public String saveBooking(@RequestParam Long roomId, Model model,
+                              @Valid @ModelAttribute BookingRequest bookingRequest,
+                              BindingResult result, RedirectAttributes redirectAttributes) {
+        String href;
+        if (result.hasErrors()) {
             model.addAttribute("bookingRequest", bookingRequest);
             model.addAttribute("rooms", roomRepository.findAll());
-            return "booking/addBooking";
+            href = "booking/addBooking";
+            return href;
         }
 
         BookedRoom bookedRoom = new BookedRoom();
@@ -86,8 +94,14 @@ public class BookingController {
 
             bookingRepository.save(bookedRoom);
         } catch (Exception e) {
+            String string = "err";
+            model.addAttribute("err",string);
             System.out.println(e.getMessage());
+            href = "booking/addBooking";
+            return href;
         }
+        String string = "suc";
+        redirectAttributes.addAttribute("suc",string);
         return "redirect:/bookings/listBooking";
     }
 
@@ -99,7 +113,6 @@ public class BookingController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         return "redirect:/bookings/listBooking";
     }
 }

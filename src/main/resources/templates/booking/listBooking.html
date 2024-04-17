@@ -9,6 +9,19 @@
 <head xmlns:th="http://www.thymeleaf.org" th:insert="/fragments/layout :: head"></head>
 
 <body>
+
+<input id="suc" type="hidden" th:value="${suc}">
+<script>
+    const erR = document.getElementById("suc");
+    console.log(erR)
+    if (erR.value === "suc") {
+        Swal.fire({
+            icon: "success",
+            title: "Success!",
+            showConfirmButton: false,
+        });
+    }
+</script>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -266,7 +279,8 @@
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Booking management /</span> List booking</h4>
+                    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Booking management /</span> List booking
+                    </h4>
                     <!-- Bootstrap Table with Header - Light -->
                     <div class="card">
                         <h5 class="card-header">Bookings</h5>
@@ -277,27 +291,30 @@
                                 <div class="row gx-3 gy-2 align-items-center">
                                     <form class="flexTTT" th:action="@{/bookings/listBooking}" method="get">
                                         <div class="col-md-3 ">
-                                            <label for="defaultFormControlInput1" class="form-label">Check in date</label>
+                                            <label for="defaultFormControlInput1" class="form-label">Check in
+                                                date</label>
                                             <input
                                                     th:value="${param.checkInDate}"
                                                     type="date"
                                                     class="form-control"
                                                     id="defaultFormControlInput1"
                                                     name="checkInDate"
-                                                    aria-describedby="defaultFormControlHelp" />
+                                                    aria-describedby="defaultFormControlHelp"/>
                                         </div>
                                         <div class="col-md-3 ms-1">
-                                            <label for="defaultFormControlInput2" class="form-label">Check out date</label>
+                                            <label for="defaultFormControlInput2" class="form-label">Check out
+                                                date</label>
                                             <input
                                                     th:value="${param.checkOutDate}"
                                                     type="date"
                                                     class="form-control"
                                                     id="defaultFormControlInput2"
                                                     name="checkOutDate"
-                                                    aria-describedby="defaultFormControlHelp" />
+                                                    aria-describedby="defaultFormControlHelp"/>
                                         </div>
                                         <div class="col-md-3 ms-1">
-                                            <label for="defaultFormControlInput3" class="form-label">Confirmation code</label>
+                                            <label for="defaultFormControlInput3" class="form-label">Confirmation
+                                                code</label>
                                             <input
                                                     th:value="${param.confirmCode}"
                                                     type="text"
@@ -305,11 +322,12 @@
                                                     id="defaultFormControlInput3"
                                                     name="confirmCode"
                                                     placeholder="..."
-                                                    aria-describedby="defaultFormControlHelp" />
+                                                    aria-describedby="defaultFormControlHelp"/>
                                         </div>
                                         <div class="col-md-3 ms-3">
                                             <label class="form-label" for="showToastPlacement">&nbsp;</label>
-                                            <button id="showToastPlacement" class="btn btn-primary d-block">Search</button>
+                                            <button id="showToastPlacement" class="btn btn-primary d-block">Search
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -353,7 +371,8 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" th:href="@{/bookings/delete(id=__${booking.id}__)}"
+                                                <a class="dropdown-item"
+                                                   th:href="@{/bookings/delete(id=__${booking.id}__)}"
                                                    onclick="return confirm ('Are you sure?')"
                                                 ><i class="bx bx-trash me-1"
                                                 ></i> Delete</a

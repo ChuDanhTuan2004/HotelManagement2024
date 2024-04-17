@@ -17344,7 +17344,7 @@ html:not(.layout-footer-fixed) .content-wrapper {
 .layout-navbar-fixed body:not(.modal-open) .layout-content-navbar .layout-navbar,
 .layout-menu-fixed body:not(.modal-open) .layout-content-navbar .layout-navbar,
 .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-content-navbar .layout-navbar {
-  z-index: 1075;
+  z-index: 1058;
 }
 
 .layout-footer-fixed .content-footer {
@@ -17353,10 +17353,10 @@ html:not(.layout-footer-fixed) .content-wrapper {
 
 @media (max-width: 1199.98px) {
   .layout-menu {
-    z-index: 1100;
+    z-index: 1059;
   }
   .layout-overlay {
-    z-index: 1099;
+    z-index: 1058;
   }
 }
 @media (min-width: 1200px) {
@@ -17379,7 +17379,7 @@ html:not(.layout-footer-fixed) .content-wrapper {
   .layout-navbar-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
   .layout-menu-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
   .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-content-navbar .layout-menu {
-    z-index: 1080;
+    z-index: 1059;
   }
 }
 .layout-menu-link-no-transition .layout-menu .menu-link,

@@ -9,6 +9,19 @@
 <head th:insert="/fragments/layout :: head"></head>
 
 <body>
+<input id="err" type="hidden" th:value="${err}">
+<script>
+    const erR = document.getElementById("err");
+    console.log(erR)
+    if(erR.value === "err"){
+        Swal.fire({
+            icon: "error",
+            title: "Booking error!",
+            showConfirmButton: false,
+        });
+    }
+</script>
+
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -318,6 +331,7 @@
                                             <p th:id="${#fields.hasErrors('numberOfChildren')}" th:errorclass="text-danger"
                                                th:errors="${bookingRequest.numberOfChildren}"></p>
                                         </div>
+
                                         <button type="submit" class="btn btn-primary">Add</button>
                                     </form>
                                 </div>
